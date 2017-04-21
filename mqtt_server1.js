@@ -68,12 +68,13 @@ client.on('message', (topic, message) => {
 		  }
 		  console.log('Connection established');  
 		});
-		
+
+		//Request the status of charger from the DB
 		con.query('select status FROM Charger WHERE id='+data.id+';',function(err,rows){ 
 			if(err) { console.log('Error reading Db'); return; } 
 			console.log('Found ' + rows.length);  
 			if(rows.length==0){
-				//Request the status of charger from the DB
+				
 				client.publish('charger/message_down', '{"response":"error", "msg":"charger doesn\'t exist"}');
 			}
 			
